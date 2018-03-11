@@ -59,7 +59,6 @@ case class GPAspects(
                     )
 
 case class GPReview(
-                     aspects: List[GPAspects],
                      author_name: String,
                      author_url: Option[String],
                      language: String,
