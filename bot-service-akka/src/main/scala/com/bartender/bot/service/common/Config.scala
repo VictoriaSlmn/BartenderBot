@@ -24,4 +24,6 @@ trait Config {
   val apiApiConf = config.getConfig("api_ai")
 
   val thecocktaildbConfig = config.getConfig("thecocktaildb")
+
+  val instagramConfig = config.getConfig("instagram")
 }

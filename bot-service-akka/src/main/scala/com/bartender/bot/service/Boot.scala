@@ -5,6 +5,7 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.bartender.bot.service.common.{Config, Logging}
 import com.bartender.bot.service.http.HttpService
+import com.bartender.bot.service.instagram.InstagramService
 
 object Boot extends App with Config with Logging {
   implicit val system = ActorSystem()
@@ -12,4 +13,7 @@ object Boot extends App with Config with Logging {
 
   Http().bindAndHandle(HttpService.route, httpHost, httpPort)
   rootLogger.info(s"Server online at $httpHost")
+
+  InstagramService.sendRandomCocktailEveryDay()
+  rootLogger.info("send random cocktail every day was activated")
 }

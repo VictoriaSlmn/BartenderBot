@@ -13,6 +13,8 @@ libraryDependencies ++= {
     "org.scalatest" %% "scalatest" % scalaTestV % "test",
 
     "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
-    "ch.qos.logback" % "logback-classic" % "1.1.7"
+    "ch.qos.logback" % "logback-classic" % "1.1.7",
+    "org.brunocvcunha.instagram4j" % "instagram4j" % "1.6",
+    "commons-io" % "commons-io" % "2.6"
   )
 }

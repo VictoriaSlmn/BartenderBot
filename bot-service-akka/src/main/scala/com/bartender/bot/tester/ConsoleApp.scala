@@ -3,11 +3,25 @@ package com.bartender.bot.tester
 import com.bartender.bot.service.api.ai.{ApiAiClientHttp, ApiAiResponseGenerator}
 import com.bartender.bot.service.domain.{Bar, Location, Message, Recipient}
 import com.bartender.bot.service.google.{GoogleBarResearcher, GooglePlacesClientHttp}
+import com.bartender.bot.service.instagram.InstagramClient
+import com.bartender.bot.service.instagram.InstagramService._
 import com.bartender.bot.service.services._
 import com.bartender.bot.service.thecocktaildb.{ThecocktaildbClientHttp, ThecocktaildbCocktailResearcher}
+import org.brunocvcunha.instagram4j.Instagram4j
+
+import scala.language.postfixOps
 
 object ConsoleApp {
   val patternLocation = "l(\\d{1,3}\\.\\d+),(\\d{1,3}\\.\\d+)"
+  private lazy val instagramClient = {
+    val instagram4j = Instagram4j.builder()
+      .username(instagramConfig.getString("username"))
+      .password(instagramConfig.getString("password"))
+      .build()
+    instagram4j.setup()
+    instagram4j.login()
+    new InstagramClient(instagram4j, cocktailResearcher)
+  }
 
   def main(args: Array[String]): Unit = {
     val sender = new ConsoleSender()
@@ -42,6 +56,8 @@ object ConsoleApp {
       } else if (lastBar.isDefined && input.equals("details")) {
         receiver.receiveBarDetails(lastBar.get.id, recipient)
         lastBar = None
+      } else if (input.equals("post")) {
+        instagramClient.publishRandomCocktail()
       } else {
         coordinates = None
         lastBar = None
