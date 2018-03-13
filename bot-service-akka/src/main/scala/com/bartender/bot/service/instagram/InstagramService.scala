@@ -56,7 +56,13 @@ object InstagramService extends Config with Dependency with Logging {
     rootLogger.info("Instagram setup")
     instagram4j.setup()
     rootLogger.info("Instagram login")
-    instagram4j.login()
+    try {
+      val result = instagram4j.login()
+      rootLogger.info(s"Instagram login result: ${result.toString}")
+    }
+    catch {
+      case e: Exception => rootLogger.error(e.getMessage)
+    }
     new InstagramClient(instagram4j, cocktailResearcher)
   }
 
