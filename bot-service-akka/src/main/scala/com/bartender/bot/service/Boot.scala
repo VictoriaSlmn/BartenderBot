@@ -14,6 +14,6 @@ object Boot extends App with Config with Logging {
   Http().bindAndHandle(HttpService.route, httpHost, httpPort)
   rootLogger.info(s"Server online at $httpHost")
 
+  rootLogger.info("activating to send random cocktail every day..")
   InstagramService.sendRandomCocktailEveryDay()
-  rootLogger.info("send random cocktail every day was activated")
 }

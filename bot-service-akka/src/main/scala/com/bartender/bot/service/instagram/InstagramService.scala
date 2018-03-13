@@ -20,9 +20,9 @@ class InstagramClient(instagramApi: Instagram4j,
   def publishRandomCocktail(): Boolean = cocktailResearcher.cocktailReceipt(None).exists(cocktail =>
     cocktail._1.imageUrl.exists(url => {
       val destination = new File("/tmp/cocktail_of_day.jpg")
-      rootLogger.info(s"Cocktail picture uploded from $url")
+      rootLogger.info(s"Cocktail picture upload from $url")
       FileUtils.copyURLToFile(new URL(url), destination)
-      rootLogger.info(s"Instagram send request")
+      rootLogger.info(s"Instagram send request..")
       try {
         val result = instagramApi.sendRequest(new InstagramUploadPhotoRequest(destination,
           s"""| ${cocktail._1.name}
@@ -39,7 +39,7 @@ class InstagramClient(instagramApi: Instagram4j,
               | ${cocktail._2.instruction.map(_.toString).getOrElse("")}
               | #${cocktail._1.name.replaceAll(" ", "")} #cocktail #coctailofday #cocktails #tony🍹
           """.stripMargin))
-        rootLogger.info(s"uploading result: ${result.toString}")
+        rootLogger.info(s"Instagram uploading result: ${result.toString}")
       } catch {
         case e: Exception => rootLogger.error(e.getMessage)
       }
@@ -53,9 +53,9 @@ object InstagramService extends Config with Dependency with Logging {
       .username(instagramConfig.getString("username"))
       .password(instagramConfig.getString("password"))
       .build()
-    rootLogger.info("Instagram setup")
+    rootLogger.info("Instagram setup..")
     instagram4j.setup()
-    rootLogger.info("Instagram login")
+    rootLogger.info("Instagram login..")
     try {
       val result = instagram4j.login()
       rootLogger.info(s"Instagram login result: ${result.toString}")
