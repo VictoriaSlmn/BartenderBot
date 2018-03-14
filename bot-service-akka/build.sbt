@@ -18,3 +18,7 @@ libraryDependencies ++= {
     "commons-io" % "commons-io" % "2.6"
   )
 }
+
+compile in Compile := (compile in Compile dependsOn Def.task { (managedSourceDirectories in Compile).value.head.mkdirs() }).value
+
+javacOptions in Compile ++= Seq("-s", (managedSourceDirectories in Compile).value.head.getAbsolutePath)
