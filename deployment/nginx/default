@@ -1,22 +1,22 @@
 server {
    listen 80;
-   server_name sgp.vikacolada.com;
-   rewrite ^ https://sgp.vikacolada.com$request_uri? permanent;
+   server_name example.com;
+   rewrite ^ https://example.com$request_uri? permanent;
 }
 
 server {
 	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 
-	server_name sgp.vikacolada.com;
+	server_name example.com;
 
 	# public assets
 	root /var/www/html;
  
 	# SSL configuration
 	ssl on;
-	ssl_certificate /etc/letsencrypt/live/sgp.vikacolada.com/fullchain.pem;
-	ssl_certificate_key /etc/letsencrypt/live/sgp.vikacolada.com/privkey.pem;
+	ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
 	ssl_session_timeout 5m;
  
 	ssl_protocols SSLv3 TLSv1;
